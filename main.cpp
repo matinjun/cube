@@ -16,6 +16,7 @@
 #include "plane.h"
 
 #include <iostream>
+#include <algorithm>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -60,7 +61,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "mtj-2018152102-finalhomework", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -136,6 +137,11 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // ÈÃÌ«Ñô×ª¶¯ÆðÀ´
+        light.lightColor = glm::vec3(std::max((float)sin(0.1f * time), 0.3f));
+        light.lightPos.x = 2.33f * sin(0.5 * time);
+        light.lightPos.z = 2.33f * cos(0.5 * time);
+
         transform.reset();
         // create transformations
         transform.view = camera.GetViewMatrix();
@@ -156,6 +162,7 @@ int main()
         human1.draw(&transform, &light, camera);
 
         // äÖÈ¾Ì«Ñô
+        sun.SetColor(light.lightColor);
         transform.model = glm::translate(glm::mat4(1.0f), light.lightPos);
         transform.model = glm::scale(transform.model, glm::vec3(0.1f));
         sun.draw(transform);

@@ -100,6 +100,7 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, vertexarray.size() * sizeof(Vertex));
 		
 	}
+#if 0
 
 	void setTexture(const std::string& path) {
 		glGenTextures(1, &texture1);
@@ -127,6 +128,7 @@ public:
 		stbi_image_free(data);
 
 	}
+#endif
 
 private:
 	// ²úÉúË÷Òı
